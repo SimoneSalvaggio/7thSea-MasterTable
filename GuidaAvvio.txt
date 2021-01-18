@@ -1,0 +1,10 @@
+Necessario Node.js -> scaricare e installare: https://nodejs.org/it/
+Aprire il file ApplicationInstall.bat (potrebero volerci alcuni minuti)
+	- a fine installazione o non si vedranno conferme ma solo si chiuderà la finestra oppure comparirà la richiesta di condivisione anonima di dati,
+	  in questo caso premere N e INVIO e attendere finchè non finisce l'ultimo caricamento e si chiude la finestra di installazione
+Aprire ApplicationStart.bat che dovrà restare aperto durante l'uso dell'app (dalla seconda volta sarà necessario solo tenere aperto questo file)
+Infine si avrà accesso all'app sul browser a questo indirizzo: http://localhost:4200/
+E' consigliato l'uso di google chrome
+
+se si vuole fare un backup dei dati si trovano sotto: 
+C:\Users\NOME_PC\AppData\Local\Google\Chrome\User Data\Default\Local Storage

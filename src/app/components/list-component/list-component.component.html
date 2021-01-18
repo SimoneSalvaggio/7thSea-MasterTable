@@ -1,0 +1,50 @@
+<div class="container" style="border: lightslategrey solid 2px;">
+    <div class="row">
+        <div class="col-3">
+            <h3>Heroes pg</h3>
+        </div>
+        <div class="col-5">
+            <table class="">
+                <tr>
+                    <th>NOME</th>
+                    <th>FERITE</th>
+                    <th>PUNTI EROE</th>
+                </tr>
+                <tr *ngFor="let hero of heroesArray; let i = index">
+                    <th>{{ hero }}</th>
+                    <td style="background-color: gainsboro;">
+                        <!-- <app-counter></app-counter> -->
+                    </td>
+                    <td style="background-color: lightcyan;">
+                        <!-- <app-counter></app-counter> -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container" style="border: lightslategrey solid 2px;">
+    <table class="table table-striped">
+        <tr>
+            <h3>Villains</h3>
+        </tr>
+        <tr>
+            <th>NOME</th>
+            <th>LIVELLO</th>
+            <th>FERITE</th>
+            <th>INCREMENTI</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let vil of villainsArray; let i = index">
+            <th>{{ vil.nome }}</th>
+            <td>{{ vil.level }}</td>
+            <td style="background-color: gainsboro;">
+                <!-- <app-counter></app-counter> -->
+            </td>
+            <td style="background-color: lightcyan;">
+                <!-- <app-counter></app-counter> -->
+            </td>
+            <td style="width: 20%;"><button class="btn btn-danger" (click)="removeVillain(i)">REMOVE</button></td>
+        </tr>
+    </table>
+</div>

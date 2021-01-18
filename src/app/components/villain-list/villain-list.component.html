@@ -1,0 +1,233 @@
+<div class="container-flex">
+    <div class="row-fluid mt-4 justify-content-center text-center">
+        <h1 class="text-danger">VILLAINS</h1>
+    </div>
+    <div class="row-fluid">
+        <div class="col">
+            <button data-toggle="modal" data-target="#vilInfoModal" class="btn btn-danger" (click)="setNullNewVantaggi()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg> AGGIUNGI VILLAIN
+            </button>
+            <button class=" ml-3 btn btn-success" (click)="editMode()">
+                Edit mode
+            </button>
+            <button class=" ml-3 btn btn-warning" (click)="delMode()">
+                Remove mode
+            </button>
+        </div>
+    </div>
+    <div class="row-fluid justify-content-center text-center">
+        <div class="col-12">
+            <table class="table border mt-4 border-danger table-hover">
+                <thead>
+                    <tr>
+                        <td scope="col">Nome</td>
+                        <td scope="col">Nazione</td>
+                        <td scope="col">Forza e influenza</td>
+                        <td scope="col">Vantaggi/q. mostruose</td>
+                        <td scope="col">Arcana</td>
+                        <td scope="col">Note</td>
+                        <td scope="col">Add to table</td>
+                        <td *ngIf="editing" scope="col">Edit</td>
+                        <td *ngIf="deleting" scope="col">Remove</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vil of villainsArray; let i = index">
+                        <th>{{vil.nome}}</th>
+                        <td>{{vil.nazione}}</td>
+                        <td>{{vil.forza}} - {{vil.influenza}}</td>
+                        <td>
+                            <div *ngFor="let vantaggio of vil.vantaggi">
+                                <a title="{{vantaggio.descrizione}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-danger bi bi-info-square-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg> {{vantaggio.nome}}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <a title="{{vil.virtu.descrizione}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-danger bi bi-info-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg> {{vil.virtu.nome}}</a>                            -
+                            <a title="{{vil.hubris.descrizione}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-danger bi bi-info-square-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg> {{vil.hubris.nome}}</a>
+                        </td>
+                        <td>{{vil.note}}</td>
+                        <td><button class="btn btn-danger" (click)="setActiveVillain(vil)">ADD</button></td>
+                        <td *ngIf="editing"><button class="btn btn-success" data-toggle="modal" data-target="#vilEditModal" (click)="selectVillainToEdit(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                          </svg></button>
+                            <button *ngIf="i!=0" class="btn btn-outline-success" title="Sposta su" (click)="spostaSu(i)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            </button>
+                            <button *ngIf="villainsArray.length > i+1" class="btn btn-outline-success" title="Sposta giu" (click)="spostaGiu(i)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                                </svg>
+                            </button>
+                        </td>
+                        <td *ngIf="deleting"><button class="btn btn-outline-danger" (click)="removeVillain(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                          </svg></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="vilInfoModal" tabindex="-1" role="dialog" aria-labelledby="vilInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger" id="vilInfoModalLabel">Aggiungi nuovo villain</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-flex">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="newVillain.nome">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Forza</label>
+                                <input type="number" class="form-control" [(ngModel)]="newVillain.forza">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Influenza</label>
+                                <input type="number" class="form-control" [(ngModel)]="newVillain.influenza">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Nazione</label>
+                                <input type="text" class="form-control" [(ngModel)]="newVillain.nazione">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            Aggiungi vantaggio:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newVantaggio.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newVantaggio.descrizione">
+                            <button class="btn btn-outline-danger mt-1" (click)="addNewVantaggio()">Aggiungi</button>
+                        </div>
+                        <div class="col-3">
+                            Vantaggi:
+                            <div *ngFor="let vantaggio of newVantaggi; let i = index">
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioAdd(i)">X</button>
+                            </div>
+                        </div>
+
+
+                        <div class="col-6">
+                            Virtù:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newVirtu.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newVirtu.descrizione">
+                        </div>
+                        <div class="col-6">
+                            Hubris:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newHubris.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newHubris.descrizione">
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Note</label>
+                                <input type="email" class="form-control" placeholder="Note" [(ngModel)]="newVillain.note">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" (click)="addVillain(newVillain)">Aggiungi</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="vilEditModal" tabindex="-1" role="dialog" aria-labelledby="vilEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-danger" id="vilEditModalLabel">Modifica villain</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-flex">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" [(ngModel)]="editedVillain.nome">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Forza</label>
+                                <input type="number" class="form-control" [(ngModel)]="editedVillain.forza">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>Influenza</label>
+                                <input type="number" class="form-control" [(ngModel)]="editedVillain.influenza">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Nazione</label>
+                                <input type="text" class="form-control" [(ngModel)]="editedVillain.nazione">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            Vantaggi:
+                            <div *ngFor="let vantaggio of newVantaggi; let i = index">
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)">X</button>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            Aggiungi vantaggio:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newVantaggio.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newVantaggio.descrizione">
+                            <button class="btn btn-outline-danger mt-1" (click)="addEditVantaggio()">Aggiungi</button>
+                        </div>
+
+                        <div class="col-6">
+                            Virtù:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newVirtu.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newVirtu.descrizione">
+                        </div>
+                        <div class="col-6">
+                            Hubris:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newHubris.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newHubris.descrizione">
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Note</label>
+                                <input type="email" class="form-control" [(ngModel)]="editedVillain.note">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" (click)="confirmEditedVillain()">Conferma modifiche</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

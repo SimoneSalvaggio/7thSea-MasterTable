@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand"><img src="https://www.needgames.it/wp-content/uploads/2018/01/7s-logo-big.png" width="140px" height="40px" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active ml-4">
+                <a (click)="background(1)" class="nav-link" [routerLink]="''">Players list</a>
+            </li>
+            <li class="nav-item active ml-4">
+                <a (click)="background(2)" class="nav-link" [routerLink]="'villain'">Villain List</a>
+            </li>
+            <li class="nav-item active ml-4">
+                <a (click)="background(3)" class="nav-link" [routerLink]="'table'">Tavolo</a>
+            </li>
+            <li class="nav-item active ml-4">
+                <a (click)="background(3)" class="nav-link" [routerLink]="'note'">Note</a>
+            </li>
+            <li class="nav-item active ml-4">
+                <a (click)="background(3)" class="nav-link" [routerLink]="'dices'">Dadi</a>
+            </li>
+            <li class="nav-item active ml-4">
+                <a (click)="background(3)" class="nav-link" [routerLink]="'guide'">Info e varie</a>
+            </li>
+        </ul>
+    </div>
+</nav>

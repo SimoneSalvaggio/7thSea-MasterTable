@@ -1,0 +1,363 @@
+<div class="container-flex">
+    <div class="row-fluid mt-4 justify-content-center text-center">
+        <h1 class="text-primary">GIOCATORI</h1>
+    </div>
+    <div class="row-fluid mt-2">
+        <div class="col">
+            <button type="button" data-toggle="modal" data-target="#heroModal" class="btn btn-primary" (click)="setAddModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg> AGGIUNGI GIOCATORE
+              </button>
+            <button type="button" class="btn btn-success ml-3" (click)="setEditMode()">
+                Edit mode
+              </button>
+            <button type="button" class="btn btn-warning ml-3" (click)="setRemoveMode()">
+                Remove mode
+              </button>
+        </div>
+    </div>
+    <div class="row-fluid justify-content-center text-center mt-4">
+        <div class="col-12">
+            <table class="table border border-primary table-hover">
+                <thead>
+                    <tr>
+                        <td scope="col">Player</td>
+                        <td scope="col">Nome</td>
+                        <td scope="col">Nazione</td>
+                        <td scope="col">Azioni</td>
+                    </tr>
+                </thead>
+                <tbody *ngIf="isArrayEmpty">
+                    <tr *ngFor="let pg of heroesArray">
+                        <th scope="row">{{pg.giocatore}}</th>
+                        <td>{{pg.nome}}</td>
+                        <td>{{pg.nazione}}</td>
+                        <td>
+                            <button title="INFO" data-toggle="modal" data-target="#pgInfoModal" (click)="selectPg(pg)" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                            </button>
+                            <button title="Modifica" *ngIf="editMode" data-toggle="modal" data-target="#heroModal" (click)="setEditModal(pg)" class="btn btn-success ml-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                              </svg></button>
+                            <button title="Elimina" *ngIf="removeMode" data-toggle="modal" data-target="#heroModal" (click)="setRemoveModal(pg)" class="btn btn-danger ml-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                              </svg></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isArrayEmpty" class="modal fade bd-example-modal-lg" id="pgInfoModal" tabindex="-1" role="dialog" aria-labelledby="pgInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-primary" id="pgInfoModalLabel">{{selectedHero.nome}}</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-flex">
+                    <div class="row">
+                        <div class="col-2">
+                            Giocatore:
+                        </div>
+                        <div class="col-4">
+                            <b>{{selectedHero.giocatore}}</b>
+                        </div>
+                        <div class="col-2">
+                            Nazione:
+                        </div>
+                        <div class="col-4">
+                            <b>{{selectedHero.nazione}}</b>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-2">
+                            Tratti:
+                        </div>
+                        <div class="col-4">
+                            Vigore: {{selectedHero.tratti.vigore}} <br> Grazia: {{selectedHero.tratti.grazia}} <br> Risolutezza: {{selectedHero.tratti.risolutezza}} <br> Acume: {{selectedHero.tratti.acume}} <br> Panache: {{selectedHero.tratti.panache}}
+                        </div>
+                        <div class="col-6">
+                            Virtù: <b>{{selectedHero.virtu.nome}}</b>: {{selectedHero.virtu.descrizione}} <br> <br> Hubris: <b>{{selectedHero.hubris.nome}}</b>: {{selectedHero.hubris.descrizione}}
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-2">
+                            Abilità:
+                        </div>
+                        <div class="col-4">
+                            Allettare: {{selectedHero.abilita.allettare}} <br> A.d. Guerra: {{selectedHero.abilita.arteDellaGuerra}} <br> Atletica: {{selectedHero.abilita.atletica}} <br> Cavalcare: {{selectedHero.abilita.cavalcare}} <br> Convincere: {{selectedHero.abilita.convincere}}
+                            <br> Empatia: {{selectedHero.abilita.empatia}} <br> Esibirsi: {{selectedHero.abilita.esibirsi}} <br> Furto: {{selectedHero.abilita.furto}}
+                        </div>
+                        <div class="col-4">
+                            Intimidire: {{selectedHero.abilita.intimidire}} <br> Istruzione: {{selectedHero.abilita.istruzione}} <br> Mira: {{selectedHero.abilita.mira}} <br> Mischia: {{selectedHero.abilita.mischia}} <br> Nascondersi: {{selectedHero.abilita.nascondersi}}
+                            <br> Navigazione: {{selectedHero.abilita.navigazione}} <br> Notare: {{selectedHero.abilita.notare}} <br> Rissa: {{selectedHero.abilita.rissa}}
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="text-secondary col-12">
+                            Vantaggi:
+                        </div>
+                        <div *ngFor="let v of selectedHero.vantaggi">
+                            <div class="row ml-1 mr-1">
+                                <div class="col">
+                                    <b>{{v.nome}}</b>: {{v.descrizione}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="text-secondary col-12">
+                            Backgrounds:
+                        </div>
+                        <div *ngFor="let b of selectedHero.background">
+                            <div class="row ml-1 mr-1">
+                                <div class="col">
+                                    <b>{{b.nome}}</b>: {{b.descrizione}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="text-secondary col-12">
+                            Note:
+                        </div>
+                        <div class="col">
+                            {{selectedHero.note}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="heroModal" tabindex="-1" role="dialog" aria-labelledby="heroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" *ngIf="addModeModal">Aggiungi nuovo giocatore</h5>
+                <h5 class="modal-title text-success" *ngIf="editModeModal">Modifica giocatore</h5>
+                <h5 class="modal-title text-danger" *ngIf="removeModeModal">Elimina giocatore</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="removeModeModal" class="container-flex">
+                    Sei sicuro di voler eliminare {{selectedHero.nome}} ({{selectedHero.giocatore}})?
+                </div>
+                <div *ngIf="editModeModal" class="container-flex">
+                    <div class="row">
+                        <div class="col-2">
+                            Giocatore:
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="selectedHero.giocatore">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            Nome:
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="selectedHero.nome">
+                        </div>
+                        <div class="col-2">
+                            Nazione:
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="selectedHero.nazione">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-2">
+                            Tratti:
+                        </div>
+                        <div class="col-2">
+                            Vigore:<input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.vigore"> Grazia:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.grazia"> Risolutezza:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.risolutezza"> Acume:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.acume"> Panache:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.panache">
+                        </div>
+                        <div class="col-7 ml-4">
+                            Virtù: <input type="text" class="form-control" [(ngModel)]="selectedHero.virtu.nome"> Descrizione: <input type="text" class="form-control" [(ngModel)]="selectedHero.virtu.descrizione"><br>
+                            <span class="mt-2">Hubris</span>: <input type="text" class="form-control" [(ngModel)]="selectedHero.hubris.nome">Descrizione:<input type="text" class="form-control" [(ngModel)]="selectedHero.hubris.descrizione">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-2">
+                            Abilità:
+                        </div>
+                        <div class="col-2">
+                            Allettare: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.allettare"> A.d. Guerra: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.arteDellaGuerra"> Atletica:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.atletica"> Cavalcare: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.cavalcare">
+                        </div>
+                        <div class="col-2">
+                            Convincere: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.convincere"> Empatia:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.empatia"> Esibirsi: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.esibirsi"> Furto: <input type="number" class="form-control"
+                                [(ngModel)]="selectedHero.abilita.furto">
+                        </div>
+                        <div class="col-2">
+                            Intimidire: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.intimidire"> Istruzione: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.istruzione"> Mira: <input type="number"
+                                class="form-control" [(ngModel)]="selectedHero.abilita.mira"> Mischia: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.mischia">
+                        </div>
+                        <div class="col-2">
+                            Nascondersi: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.nascondersi"> Navigazione:
+                            <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.navigazione"> Notare: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.notare"> Rissa: <input type="number" class="form-control"
+                                [(ngModel)]="selectedHero.abilita.rissa">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-3">
+                            Vantaggi:
+                            <div *ngFor="let vantaggio of selectedHero.vantaggi; let i = index">
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)">X</button>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            Aggiungi vantaggio:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newVantaggio.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newVantaggio.descrizione">
+                            <button class="btn btn-outline-primary mt-1" (click)="addEditVantaggio()">Aggiungi</button>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-3">
+                            Backgrounds:
+                            <div *ngFor="let background of selectedHero.background; let i = index">
+                                {{background.nome}} <button (click)="rimuoviBackgroundEdit(i)">X</button>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            Aggiungi background:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newBackground.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newBackground.descrizione">
+                            <button class="btn btn-outline-primary mt-1" (click)="addEditBackground()">Aggiungi</button>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            Note:
+                            <input type="text" class="form-control mt-1" placeholder="note varie" [(ngModel)]="newHero.note">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="addModeModal" class="container-flex">
+                    <div class="row">
+                        <div class="col-2">
+                            Giocatore:
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="newHero.giocatore">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            Nome:
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="newHero.nome">
+                        </div>
+                        <div class="col-2">
+                            Nazione:
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="newHero.nazione">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-2">
+                            Tratti:
+                        </div>
+                        <div class="col-2">
+                            Vigore:<input type="number" class="form-control" [(ngModel)]="newTratti.vigore"> Grazia:
+                            <input type="number" class="form-control" [(ngModel)]="newTratti.grazia"> Risolutezza:
+                            <input type="number" class="form-control" [(ngModel)]="newTratti.risolutezza"> Acume:
+                            <input type="number" class="form-control" [(ngModel)]="newTratti.acume"> Panache:
+                            <input type="number" class="form-control" [(ngModel)]="newTratti.panache">
+                        </div>
+                        <div class="col-7 ml-4">
+                            Virtù: <input type="text" class="form-control" [(ngModel)]="newVirtu.nome"> Descrizione: <input type="text" class="form-control" [(ngModel)]="newVirtu.descrizione"><br>
+                            <span class="mt-2">Hubris</span>: <input type="text" class="form-control" [(ngModel)]="newHubris.nome">Descrizione:<input type="text" class="form-control" [(ngModel)]="newHubris.descrizione">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-2">
+                            Abilità:
+                        </div>
+                        <div class="col-2">
+                            Allettare: <input type="number" class="form-control" [(ngModel)]="newAbilita.allettare"> A.d. Guerra: <input type="number" class="form-control" [(ngModel)]="newAbilita.arteDellaGuerra"> Atletica: <input type="number" class="form-control"
+                                [(ngModel)]="newAbilita.atletica"> Cavalcare: <input type="number" class="form-control" [(ngModel)]="newAbilita.cavalcare">
+                        </div>
+                        <div class="col-2">
+                            Convincere: <input type="number" class="form-control" [(ngModel)]="newAbilita.convincere"> Empatia:
+                            <input type="number" class="form-control" [(ngModel)]="newAbilita.empatia"> Esibirsi: <input type="number" class="form-control" [(ngModel)]="newAbilita.esibirsi"> Furto: <input type="number" class="form-control" [(ngModel)]="newAbilita.furto">
+                        </div>
+                        <div class="col-2">
+                            Intimidire: <input type="number" class="form-control" [(ngModel)]="newAbilita.intimidire"> Istruzione: <input type="number" class="form-control" [(ngModel)]="newAbilita.istruzione"> Mira: <input type="number" class="form-control"
+                                [(ngModel)]="newAbilita.mira"> Mischia: <input type="number" class="form-control" [(ngModel)]="newAbilita.mischia">
+                        </div>
+                        <div class="col-2">
+                            Nascondersi: <input type="number" class="form-control" [(ngModel)]="newAbilita.nascondersi"> Navigazione:
+                            <input type="number" class="form-control" [(ngModel)]="newAbilita.navigazione"> Notare: <input type="number" class="form-control" [(ngModel)]="newAbilita.notare"> Rissa: <input type="number" class="form-control" [(ngModel)]="newAbilita.rissa">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-3">
+                            Vantaggi:
+                            <div *ngFor="let vantaggio of newVantaggi; let i = index">
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioAdd(i)">X</button>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            Aggiungi vantaggio:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newVantaggio.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newVantaggio.descrizione">
+                            <button class="btn btn-outline-primary mt-1" (click)="addNewVantaggio()">Aggiungi</button>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-3">
+                            Backgrounds:
+                            <div *ngFor="let background of newBackgrounds; let i = index">
+                                {{background.nome}} <button (click)="rimuoviBackgroundAdd(i)">X</button>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            Aggiungi background:
+                            <input type="text" class="form-control mt-1" placeholder="Nome" [(ngModel)]="newBackground.nome">
+                            <input type="text" class="form-control mt-1" placeholder="Descrizione" [(ngModel)]="newBackground.descrizione">
+                            <button class="btn btn-outline-primary mt-1" (click)="addNewBackground()">Aggiungi</button>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            Note:
+                            <input type="text" class="form-control mt-1" placeholder="note varie" [(ngModel)]="newHero.note">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" *ngIf="addModeModal" (click)="addPlayer()">Conferma giocatore</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" *ngIf="editModeModal" (click)="editPlayer()">Modifica giocatore</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" *ngIf="removeModeModal" (click)="removePlayer()">Elimina giocatore</button>
+            </div>
+        </div>
+    </div>
+</div>
