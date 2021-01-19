@@ -128,7 +128,7 @@
                         <div class="text-secondary col-12">
                             Note:
                         </div>
-                        <div class="col">
+                        <div class="col-12">
                             {{selectedHero.note}}
                         </div>
                     </div>
@@ -176,7 +176,9 @@
                             Nazione:
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" [(ngModel)]="selectedHero.nazione">
+                            <select class="form-control" [(ngModel)]="selectedHero.nazione">
+                                    <option *ngFor="let nazione of nazioniArray" [selected]="selectedHero.nazione == nazione" value="{{nazione}}">{{nazione}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -222,7 +224,7 @@
                         <div class="col-3">
                             Vantaggi:
                             <div *ngFor="let vantaggio of selectedHero.vantaggi; let i = index">
-                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)">X</button>
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">
@@ -237,7 +239,7 @@
                         <div class="col-3">
                             Backgrounds:
                             <div *ngFor="let background of selectedHero.background; let i = index">
-                                {{background.nome}} <button (click)="rimuoviBackgroundEdit(i)">X</button>
+                                {{background.nome}} <button (click)="rimuoviBackgroundEdit(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">
@@ -250,7 +252,7 @@
                     <div class="row mt-4">
                         <div class="col">
                             Note:
-                            <input type="text" class="form-control mt-1" placeholder="note varie" [(ngModel)]="newHero.note">
+                            <input type="text" class="form-control mt-1" placeholder="note varie" [(ngModel)]="selectedHero.note">
                         </div>
                     </div>
                 </div>
@@ -274,7 +276,9 @@
                             Nazione:
                         </div>
                         <div class="col-4">
-                            <input type="text" class="form-control" [(ngModel)]="newHero.nazione">
+                            <select class="form-control" [(ngModel)]="newHero.nazione">
+                                <option *ngFor="let nazione of nazioniArray" value="{{nazione}}">{{nazione}}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -318,7 +322,7 @@
                         <div class="col-3">
                             Vantaggi:
                             <div *ngFor="let vantaggio of newVantaggi; let i = index">
-                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioAdd(i)">X</button>
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioAdd(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">
@@ -333,7 +337,7 @@
                         <div class="col-3">
                             Backgrounds:
                             <div *ngFor="let background of newBackgrounds; let i = index">
-                                {{background.nome}} <button (click)="rimuoviBackgroundAdd(i)">X</button>
+                                {{background.nome}} <button (click)="rimuoviBackgroundAdd(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">
@@ -347,7 +351,7 @@
                     <div class="row mt-4">
                         <div class="col">
                             Note:
-                            <input type="text" class="form-control mt-1" placeholder="note varie" [(ngModel)]="newHero.note">
+                            <input type="text" class="form-control mt-1" placeholder="Note varie" [(ngModel)]="newHero.note">
                         </div>
                     </div>
                 </div>

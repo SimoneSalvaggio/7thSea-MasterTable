@@ -121,7 +121,7 @@
                         <div class="col-3">
                             Vantaggi:
                             <div *ngFor="let vantaggio of newVantaggi; let i = index">
-                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioAdd(i)">X</button>
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioAdd(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
 
@@ -194,7 +194,7 @@
                         <div class="col-3">
                             Vantaggi:
                             <div *ngFor="let vantaggio of newVantaggi; let i = index">
-                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)">X</button>
+                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">

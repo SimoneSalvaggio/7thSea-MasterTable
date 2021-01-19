@@ -10,12 +10,18 @@ export class DiceComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.d1 = 0;
+    this.d2 = 0;
+    this.d3 = 0;
     document.body.style.background = "#fcfbfa";
     this.lastDiceShot = localStorage.getItem("7thSeaLastShot");
     this.lastLastDiceShot = localStorage.getItem("7thSeaLastLastShot");
     this.lastLastLastDiceShot = localStorage.getItem("7thSeaLastLastLastShot");
   }
 
+  d1: number;
+  d2: number;
+  d3: number;
   risultatiDadi: number[];
   dadiTirati : number[];
   sommaDadi = 0;
@@ -30,13 +36,13 @@ export class DiceComponent implements OnInit {
     this.dadiTirati = [];
     this.sommaDadi = 0;
     for (let i = 0; i < numeroDadi; i++) {
-      let temp = Math.floor(Math.random() * 10 + 1);
-      this.dadiTirati.push(temp);
-      if (temp==10) {
+      let dado = Math.floor(Math.random() * 10 + 1);
+      this.dadiTirati.push(dado);
+      if (dado==10) {
         this.totalIncr++;
         this.sommaDadi += 10;
       } else {
-        this.risultatiDadi.push(temp);
+        this.risultatiDadi.push(dado);
       }
     }
     this.risultatiDadi = this.risultatiDadi.sort(this.ordinaArray);
@@ -45,18 +51,19 @@ export class DiceComponent implements OnInit {
       this.sommaDadi += this.risultatiDadi[i];
     }
     for (let i = 0; i < this.risultatiDadi.length+1; i++) {
+      this.d1 = i;
       for (let j = 0; j < this.risultatiDadi.length+1; j++) {
+        this.d2 = j;
         for (let y = 0; y < this.risultatiDadi.length+1; y++) {
-          if (i!=y && i!=j && j!=y) {
-            (this.calcolatoreIncrementi(i, j, y, 10));
-            (this.calcolatoreIncrementi(i, j, y, 11));
-            (this.calcolatoreIncrementi(i, j, y, 12));
-            (this.calcolatoreIncrementi(i, j, y, 13));
-            (this.calcolatoreIncrementi(i, j, y, 14));
-            (this.calcolatoreIncrementi(i, j, y, 15));
-            (this.calcolatoreIncrementi(i, j, y, 16));
-            (this.calcolatoreIncrementi(i, j, y, 17));
-            (this.calcolatoreIncrementi(i, j, y, 18));
+          this.d3 = y;
+          if (this.d1!=this.d3 && this.d1!=this.d2 && this.d2!=this.d3) {
+            for (let k = 10; k < 19; k++) {
+              let temp = this.totalIncr;
+              this.calcolatoreIncrementi(k);
+              if (temp != this.totalIncr) {
+                k = 10;
+              }
+            }
           }
         }
       }
@@ -69,118 +76,94 @@ export class DiceComponent implements OnInit {
     this.lastLastDiceShot = localStorage.getItem("7thSeaLastLastShot");
     this.lastLastLastDiceShot = localStorage.getItem("7thSeaLastLastLastShot");
   }
-  
-  private calcolatoreIncrementi(i: number, j: number, y: number, xxx: number) {
-    let tempZero = this.risultatiDadi[j] + this.risultatiDadi[y];
-    let tempUno = this.risultatiDadi[i] + this.risultatiDadi[y];
-    let tempDue = this.risultatiDadi[i] + this.risultatiDadi[j];
-    let tempTre = this.risultatiDadi[i] + this.risultatiDadi[j] + this.risultatiDadi[y];
-    if (y != j) {
-      if (tempZero == xxx) {
+
+  calcolatoreIncrementi(k){
+    let tempZero = this.risultatiDadi[this.d1] + this.risultatiDadi[this.d2];
+    let tempUno = this.risultatiDadi[this.d1] + this.risultatiDadi[this.d3];
+    let tempDue = this.risultatiDadi[this.d2] + this.risultatiDadi[this.d3];
+    let tempTre = this.risultatiDadi[this.d1] + this.risultatiDadi[this.d2] + this.risultatiDadi[this.d3];
+    if (this.d1!=this.d2 && this.d1!=this.d3 && this.d2!=this.d3) {
+      if (tempZero == k) {
         this.totalIncr++;
-        if (y > j) {
-          this.risultatiDadi.splice(y, 1);
-          this.risultatiDadi.splice(j, 1);
-          y = y - 2;
-          j--;
+        if (this.d1>this.d2) {
+          this.risultatiDadi.splice(this.d1, 1);
+          this.risultatiDadi.splice(this.d2, 1);
+        } else {
+          this.risultatiDadi.splice(this.d2, 1);
+          this.risultatiDadi.splice(this.d1, 1);
         }
-        else {
-          this.risultatiDadi.splice(j, 1);
-          this.risultatiDadi.splice(y, 1);
-          j = j - 2;
-          y--;
-        }
+        this.reset();
       }
     }
-    if (i != y) {
-      if (tempUno == xxx) {
+    if (this.d1!=this.d2 && this.d1!=this.d3 && this.d2!=this.d3) {
+      if (tempUno == k) {
         this.totalIncr++;
-        if (i > y) {
-          this.risultatiDadi.splice(i, 1);
-          this.risultatiDadi.splice(y, 1);
-          i = i - 2;
-          y--;
+        if (this.d1>this.d3) {
+          this.risultatiDadi.splice(this.d1, 1);
+          this.risultatiDadi.splice(this.d3, 1);
+        } else {
+          this.risultatiDadi.splice(this.d3, 1);
+          this.risultatiDadi.splice(this.d1, 1);
         }
-        else {
-          this.risultatiDadi.splice(y, 1);
-          this.risultatiDadi.splice(i, 1);
-          y = y - 2;
-          i--;
-        }
+        this.reset();
       }
     }
-    if (i != j) {
-      if (tempDue == xxx) {
+    if (this.d1!=this.d2 && this.d1!=this.d3 && this.d2!=this.d3) {
+      if (tempDue == k) {
         this.totalIncr++;
-        if (i > j) {
-          this.risultatiDadi.splice(i, 1);
-          this.risultatiDadi.splice(j, 1);
-          i = i - 2;
-          j--;
+        if (this.d3>this.d2) {
+          this.risultatiDadi.splice(this.d3, 1);
+          this.risultatiDadi.splice(this.d2, 1);
+        } else {
+          this.risultatiDadi.splice(this.d2, 1);
+          this.risultatiDadi.splice(this.d3, 1);
         }
-        else {
-          this.risultatiDadi.splice(j, 1);
-          this.risultatiDadi.splice(i, 1);
-          j = j - 2;
-          i--;
-        }
+        this.reset();
       }
     }
-    if (i != j && i != y && j != y) {
-      if (tempTre == xxx) {
+    if (this.d1!=this.d2 && this.d1!=this.d3 && this.d2!=this.d3) {
+      if (tempTre == k) {
         this.totalIncr++;
-        if (i > j && i > y) {
-          this.risultatiDadi.splice(i, 1);
-          i = i - 3;
-          if (y > j) {
-            this.risultatiDadi.splice(y, 1);
-            this.risultatiDadi.splice(j, 1);
-            y = y - 2;
-            j--;
+        if (this.d1>this.d2 && this.d1>this.d3) {
+          if (this.d2>this.d3) {
+            this.risultatiDadi.splice(this.d1, 1);
+            this.risultatiDadi.splice(this.d2, 1);
+            this.risultatiDadi.splice(this.d3, 1);
+          } else{
+            this.risultatiDadi.splice(this.d1, 1);
+            this.risultatiDadi.splice(this.d3, 1);
+            this.risultatiDadi.splice(this.d2, 1);
           }
-          else {
-            this.risultatiDadi.splice(y, 1);
-            this.risultatiDadi.splice(j, 1);
-            j = j - 2;
-            y--;
+        } else if (this.d2>this.d1 && this.d2>this.d3) {
+          if (this.d1>this.d3) {
+            this.risultatiDadi.splice(this.d2, 1);
+            this.risultatiDadi.splice(this.d1, 1);
+            this.risultatiDadi.splice(this.d3, 1);
+          } else{
+            this.risultatiDadi.splice(this.d2, 1);
+            this.risultatiDadi.splice(this.d3, 1);
+            this.risultatiDadi.splice(this.d1, 1);
           }
-        } else if (j > i && j > y) {
-          this.risultatiDadi.splice(j, 1);
-          j = j - 3;
-          if (y > i) {
-            this.risultatiDadi.splice(y, 1);
-            this.risultatiDadi.splice(i, 1);
-            y = y - 2;
-            i--;
-          }
-          else {
-            this.risultatiDadi.splice(y, 1);
-            this.risultatiDadi.splice(i, 1);
-            i = i - 2;
-            y--;
-          }
-        } else if (y > i && y > j) {
-          this.risultatiDadi.splice(y, 1);
-          y = y - 3;
-          if (j > i) {
-            this.risultatiDadi.splice(j, 1);
-            this.risultatiDadi.splice(i, 1);
-            j = j - 2;
-            i--;
-          }
-          else {
-            this.risultatiDadi.splice(j, 1);
-            this.risultatiDadi.splice(i, 1);
-            i = i - 2;
-            j--;
+        } else if (this.d3>this.d1 && this.d3>this.d2) {
+          if (this.d1>this.d2) {
+            this.risultatiDadi.splice(this.d3, 1);
+            this.risultatiDadi.splice(this.d1, 1);
+            this.risultatiDadi.splice(this.d2, 1);
+          } else{
+            this.risultatiDadi.splice(this.d3, 1);
+            this.risultatiDadi.splice(this.d2, 1);
+            this.risultatiDadi.splice(this.d1, 1);
           }
         }
-      }
-      if (this.sommaDadi < this.totalIncr*10) {
-        this.totalIncr--;
+        this.reset();
       }
     }
-    // return { i, j, y };
+  }
+
+  reset(){
+    this.d1=0;
+    this.d2=0;
+    this.d3=0;
   }
 
   ordinaArray(a, b) {

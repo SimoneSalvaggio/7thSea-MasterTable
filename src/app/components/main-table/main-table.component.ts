@@ -46,19 +46,12 @@ export class MainTableComponent implements OnInit {
     }
     if (this.activeVillainsArray == null) {
       this.isVilEmpty = false;
-      // this.activeVillainsArray = [];
-      // let nessuno = new Villain();
-      // nessuno.nome="nessuno";
-      // this.selectedPng = nessuno;
-      // this.selectedPng.virtu = new Virtu();
-      // this.selectedPng.hubris = new Hubris();
-      // this.selectedPng.virtu.nome = "";
-      // this.selectedPng.virtu.descrizione = "";
-      // this.selectedPng.hubris.nome = "";
-      // this.selectedPng.hubris.descrizione = "";
-      // this.activeVillainsArray.push(nessuno);
     } else {
       this.isVilEmpty = true;
+      for (let i = 0; i < this.activeVillainsArray.length; i++) {
+        this.activeVillainsArray[i].id=i;
+        
+      }
     }
     if (this.activeVillainsArray == null) {
       this.activeVillainsArray = [];
@@ -92,14 +85,17 @@ export class MainTableComponent implements OnInit {
     if (this.activeVillainsArray != null) {
       this.activeVillainsArray = this.activeVillainsArray.sort((n1, n2) => {
         if (n1.id > n2.id) {
+          console.log(this.activeVillainsArray);
           return 1;
         }
 
         if (n1.id < n2.id) {
+          console.log(this.activeVillainsArray);
           return -1;
         }
 
-        return 0;
+          console.log(this.activeVillainsArray);
+          return 0;
       });
     }
   }

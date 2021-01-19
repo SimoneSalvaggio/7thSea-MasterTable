@@ -31,10 +31,12 @@ export class MainListComponent implements OnInit {
   editModeModal: boolean;
   removeModeModal: boolean;
   isArrayEmpty: boolean;
+  nazioniArray: string[];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.nazioniArray = ["Vodacce", "Vestenmennavenjar", "Ussura", "Montaigne", "Marche delle Highland","Insimore", "Eisen", "Conf. Samartiana", "Castille", "Avalon"]
     document.body.style.background = "#c0d5f8";
     this.editMode = false;
     this.removeMode = false;
