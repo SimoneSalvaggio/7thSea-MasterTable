@@ -223,8 +223,8 @@
                     <div class="row mt-4">
                         <div class="col-3">
                             Vantaggi:
-                            <div *ngFor="let vantaggio of selectedHero.vantaggi; let i = index">
-                                {{vantaggio.nome}} <button (click)="rimuoviVantaggioEdit(i)" class="btn btn-sm border">X</button>
+                            <div *ngFor="let vantaggio of newVantaggi; let i = index">
+                                <span (click)="setSelectedVantaggio(vantaggio)">{{vantaggio.nome}}</span> <button (click)="rimuoviVantaggioEdit(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">
@@ -238,8 +238,8 @@
                     <div class="row mt-4">
                         <div class="col-3">
                             Backgrounds:
-                            <div *ngFor="let background of selectedHero.background; let i = index">
-                                {{background.nome}} <button (click)="rimuoviBackgroundEdit(i)" class="btn btn-sm border">X</button>
+                            <div *ngFor="let background of newBackgrounds; let i = index">
+                                <span (click)="setSelectedBackground(background)">{{background.nome}}</span> <button (click)="rimuoviBackgroundEdit(i)" class="btn btn-sm border">X</button>
                             </div>
                         </div>
                         <div class="col-9">
