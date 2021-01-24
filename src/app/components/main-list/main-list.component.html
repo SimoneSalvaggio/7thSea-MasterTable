@@ -34,15 +34,17 @@
                         <td>{{pg.nome}}</td>
                         <td>{{pg.nazione}}</td>
                         <td>
-                            <button title="INFO" data-toggle="modal" data-target="#pgInfoModal" (click)="selectPg(pg)" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square-fill" viewBox="0 0 16 16">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button title="INFO" data-toggle="modal" data-target="#pgInfoModal" (click)="selectPg(pg)" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square-fill" viewBox="0 0 16 16">
                                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
                             </button>
-                            <button title="Modifica" *ngIf="editMode" data-toggle="modal" data-target="#heroModal" (click)="setEditModal(pg)" class="btn btn-success ml-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <button title="Modifica" *ngIf="editMode" data-toggle="modal" data-target="#heroModal" (click)="setEditModal(pg)" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                               </svg></button>
-                            <button title="Elimina" *ngIf="removeMode" data-toggle="modal" data-target="#heroModal" (click)="setRemoveModal(pg)" class="btn btn-danger ml-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <button title="Elimina" *ngIf="removeMode" data-toggle="modal" data-target="#heroModal" (click)="setRemoveModal(pg)" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                               </svg></button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -186,11 +188,11 @@
                             Tratti:
                         </div>
                         <div class="col-2">
-                            Vigore:<input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.vigore"> Grazia:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.grazia"> Risolutezza:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.risolutezza"> Acume:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.acume"> Panache:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.tratti.panache">
+                            Vigore:<input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.tratti.vigore"> Grazia:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.tratti.grazia"> Risolutezza:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.tratti.risolutezza"> Acume:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.tratti.acume"> Panache:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.tratti.panache">
                         </div>
                         <div class="col-7 ml-4">
                             Virtù: <input type="text" class="form-control" [(ngModel)]="selectedHero.virtu.nome"> Descrizione: <input type="text" class="form-control" [(ngModel)]="selectedHero.virtu.descrizione"><br>
@@ -202,22 +204,22 @@
                             Abilità:
                         </div>
                         <div class="col-2">
-                            Allettare: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.allettare"> A.d. Guerra: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.arteDellaGuerra"> Atletica:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.atletica"> Cavalcare: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.cavalcare">
+                            Allettare: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.allettare"> A.d. Guerra: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.arteDellaGuerra"> Atletica:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.atletica"> Cavalcare: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.cavalcare">
                         </div>
                         <div class="col-2">
-                            Convincere: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.convincere"> Empatia:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.empatia"> Esibirsi: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.esibirsi"> Furto: <input type="number" class="form-control"
-                                [(ngModel)]="selectedHero.abilita.furto">
+                            Convincere: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.convincere"> Empatia:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.empatia"> Esibirsi: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.esibirsi"> Furto: <input min="0" type="number"
+                                class="form-control" [(ngModel)]="selectedHero.abilita.furto">
                         </div>
                         <div class="col-2">
-                            Intimidire: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.intimidire"> Istruzione: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.istruzione"> Mira: <input type="number"
-                                class="form-control" [(ngModel)]="selectedHero.abilita.mira"> Mischia: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.mischia">
+                            Intimidire: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.intimidire"> Istruzione: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.istruzione"> Mira:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.mira"> Mischia: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.mischia">
                         </div>
                         <div class="col-2">
-                            Nascondersi: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.nascondersi"> Navigazione:
-                            <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.navigazione"> Notare: <input type="number" class="form-control" [(ngModel)]="selectedHero.abilita.notare"> Rissa: <input type="number" class="form-control"
-                                [(ngModel)]="selectedHero.abilita.rissa">
+                            Nascondersi: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.nascondersi"> Navigazione:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.navigazione"> Notare: <input min="0" type="number" class="form-control" [(ngModel)]="selectedHero.abilita.notare"> Rissa: <input min="0" type="number"
+                                class="form-control" [(ngModel)]="selectedHero.abilita.rissa">
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -286,11 +288,11 @@
                             Tratti:
                         </div>
                         <div class="col-2">
-                            Vigore:<input type="number" class="form-control" [(ngModel)]="newTratti.vigore"> Grazia:
-                            <input type="number" class="form-control" [(ngModel)]="newTratti.grazia"> Risolutezza:
-                            <input type="number" class="form-control" [(ngModel)]="newTratti.risolutezza"> Acume:
-                            <input type="number" class="form-control" [(ngModel)]="newTratti.acume"> Panache:
-                            <input type="number" class="form-control" [(ngModel)]="newTratti.panache">
+                            Vigore:<input min="0" type="number" class="form-control" [(ngModel)]="newTratti.vigore"> Grazia:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="newTratti.grazia"> Risolutezza:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="newTratti.risolutezza"> Acume:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="newTratti.acume"> Panache:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="newTratti.panache">
                         </div>
                         <div class="col-7 ml-4">
                             Virtù: <input type="text" class="form-control" [(ngModel)]="newVirtu.nome"> Descrizione: <input type="text" class="form-control" [(ngModel)]="newVirtu.descrizione"><br>
@@ -302,20 +304,22 @@
                             Abilità:
                         </div>
                         <div class="col-2">
-                            Allettare: <input type="number" class="form-control" [(ngModel)]="newAbilita.allettare"> A.d. Guerra: <input type="number" class="form-control" [(ngModel)]="newAbilita.arteDellaGuerra"> Atletica: <input type="number" class="form-control"
-                                [(ngModel)]="newAbilita.atletica"> Cavalcare: <input type="number" class="form-control" [(ngModel)]="newAbilita.cavalcare">
+                            Allettare: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.allettare"> A.d. Guerra: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.arteDellaGuerra"> Atletica: <input min="0"
+                                type="number" class="form-control" [(ngModel)]="newAbilita.atletica"> Cavalcare: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.cavalcare">
                         </div>
                         <div class="col-2">
-                            Convincere: <input type="number" class="form-control" [(ngModel)]="newAbilita.convincere"> Empatia:
-                            <input type="number" class="form-control" [(ngModel)]="newAbilita.empatia"> Esibirsi: <input type="number" class="form-control" [(ngModel)]="newAbilita.esibirsi"> Furto: <input type="number" class="form-control" [(ngModel)]="newAbilita.furto">
+                            Convincere: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.convincere"> Empatia:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.empatia"> Esibirsi: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.esibirsi"> Furto: <input min="0" type="number" class="form-control"
+                                [(ngModel)]="newAbilita.furto">
                         </div>
                         <div class="col-2">
-                            Intimidire: <input type="number" class="form-control" [(ngModel)]="newAbilita.intimidire"> Istruzione: <input type="number" class="form-control" [(ngModel)]="newAbilita.istruzione"> Mira: <input type="number" class="form-control"
-                                [(ngModel)]="newAbilita.mira"> Mischia: <input type="number" class="form-control" [(ngModel)]="newAbilita.mischia">
+                            Intimidire: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.intimidire"> Istruzione: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.istruzione"> Mira: <input min="0" type="number"
+                                class="form-control" [(ngModel)]="newAbilita.mira"> Mischia: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.mischia">
                         </div>
                         <div class="col-2">
-                            Nascondersi: <input type="number" class="form-control" [(ngModel)]="newAbilita.nascondersi"> Navigazione:
-                            <input type="number" class="form-control" [(ngModel)]="newAbilita.navigazione"> Notare: <input type="number" class="form-control" [(ngModel)]="newAbilita.notare"> Rissa: <input type="number" class="form-control" [(ngModel)]="newAbilita.rissa">
+                            Nascondersi: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.nascondersi"> Navigazione:
+                            <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.navigazione"> Notare: <input min="0" type="number" class="form-control" [(ngModel)]="newAbilita.notare"> Rissa: <input min="0" type="number" class="form-control"
+                                [(ngModel)]="newAbilita.rissa">
                         </div>
                     </div>
                     <div class="row mt-4">

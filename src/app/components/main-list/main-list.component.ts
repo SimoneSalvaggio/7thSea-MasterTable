@@ -36,7 +36,7 @@ export class MainListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.nazioniArray = ["Vodacce", "Vestenmennavenjar", "Ussura", "Montaigne", "Marche delle Highland","Insimore", "Eisen", "Conf. Samartiana", "Castille", "Avalon"]
+    this.nazioniArray = ["Vodacce", "Vestenmennavenjar", "Ussura", "Montaigne", "Marche delle Highland","Insimore", "Eisen", "Conf. Samartiana", "Castille", "Avalon", "altro"]
     document.body.style.background = "#c0d5f8";
     this.editMode = false;
     this.removeMode = false;
@@ -55,7 +55,7 @@ export class MainListComponent implements OnInit {
     let jsonHeroes = localStorage.getItem("7thSeaHeroes");
     this.heroesArray = JSON.parse(jsonHeroes);
     localStorage.setItem("7thSeaHeroes", JSON.stringify(this.heroesArray));
-    if (this.heroesArray==null) {
+    if (this.heroesArray.length==0 || this.heroesArray == null) {
       this.isArrayEmpty = false;
       this.heroesArray = [];
     } else{
@@ -117,6 +117,9 @@ export class MainListComponent implements OnInit {
       for (let i = 0; i < this.heroesArray.length; i++) {
         this.isArrayEmpty = true;
       }
+    }
+    if (this.heroesArray.length==1) {
+      this.selectedHero=this.heroesArray[0];
     }
   }
 

@@ -31,7 +31,7 @@ export class MainTableComponent implements OnInit {
     this.positionInVillain = 500;
     this.puntiPericolo = parseInt(localStorage.getItem("7thSeaPP"));
     if (!this.puntiPericolo) {
-      this.puntiPericolo = 5;
+      this.puntiPericolo = 0;
     }
     let jsonHeroes = localStorage.getItem("7thSeaHeroes");
     this.heroesArray = JSON.parse(jsonHeroes);

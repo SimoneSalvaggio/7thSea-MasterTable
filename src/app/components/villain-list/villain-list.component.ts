@@ -22,10 +22,12 @@ export class VillainListComponent implements OnInit {
   newVantaggi: Vantaggio[];
   newVirtu: Virtu;
   newHubris: Hubris;
+  nazioniArray: string[];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.nazioniArray = ["Vodacce", "Vestenmennavenjar", "Ussura", "Montaigne", "Marche delle Highland","Insimore", "Eisen", "Conf. Samartiana", "Castille", "Avalon", "altro"]
     document.body.style.background = "#facaca";
     this.reset();
     let jsonVillains = localStorage.getItem("7thSeaVillains");
